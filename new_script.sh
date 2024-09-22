@@ -116,6 +116,7 @@ set_up
 [[ -z "$SCRIPT_NAME" ]] && error_exit "Mandatory argument 'script_name' not given."
 [[ -f "$TEMPLATES_DIR/new_script_template.sh" ]] || error_exit "Template not found in given template directory."
 cp "$TEMPLATES_DIR/new_script_template.sh" "$OUTPUT_DIR/$SCRIPT_NAME"  # TODO: hardcode path not good.
+chmod +x "$OUTPUT_DIR/$SCRIPT_NAME"
 
 graceful_exit
 

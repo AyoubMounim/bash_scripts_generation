@@ -84,15 +84,15 @@ load_libs
 
 while [[ -n "$1" ]]; do
     case "$1" in
-        -h|--help)
+        -h | --help)
             print_help
             graceful_exit
             ;;
-        -i|--install-prefix)
+        -i | --install-prefix)
             shift
             INSTALL_PREFIX="$1"
             ;;
-        -t|--templates-install-prefix)
+        -t | --templates-install-prefix)
             shift
             TEMPLATES_INSTALL_PREFIX="$1"
             ;;
@@ -107,7 +107,7 @@ done
 set_up
 
 cp -r "$(pwd)/templates" "$TEMPLATES_INSTALL_PREFIX"
-cp "$(pwd)/$EXE_NAME" "$INSTALL_PREFIX"
+cp "$(pwd)/$EXE_NAME" "$INSTALL_PREFIX/new_script"
 
 graceful_exit
 
