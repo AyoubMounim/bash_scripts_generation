@@ -6,7 +6,7 @@ LIBS=()  # Paths to external libraries.
 
 SCRIPT_NAME=""
 QUIET=0  # TODO: this flag is not used.
-TEMPLATES_DIR="$HOME/.local/share/bash_scripts_generation/templates"
+TEMPLATES_DIR="/usr/local/share/bash_scripts_generation/templates"
 OUTPUT_DIR="$(pwd)"
 
 function set_up(){
