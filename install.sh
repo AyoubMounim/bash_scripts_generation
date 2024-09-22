@@ -70,8 +70,8 @@ $(usage)
 
 Otions:
 -h, --help    Display this help message.
--i, --install-prefix    Executable install location.
--t, --templates-install-prefix    Templates install location.
+-i, --install-prefix <prefix_path>    Executable install location.
+-t, --templates-install-prefix <prefix_path>    Templates install location.
 
 EOF
     return 0

@@ -57,7 +57,7 @@ function load_libs(){
 
 function usage(){
     printf "%s\n" "Usage: $PROGNAME [-h|--help]"
-    printf "%s\n" "\t$PROGNAME script_name"
+    printf "       %s\n" "$PROGNAME new_script_name"
     return 0
 }
 
@@ -70,9 +70,11 @@ $(usage)
 
 Otions:
 -h, --help          Display this help message.
+-o, --output <output_dir>   Path to output directory (defaults to cwd).
+-t, --templates <templates_dir>    Path to templates directory (defaults to /usr/local/share/bash_scripts_generation/templates).
 
 Arguments:
-script_name         New script name.
+new_script_name    New script's name.
 
 EOF
     return 0
