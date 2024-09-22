@@ -100,7 +100,7 @@ while [[ -n "$1" ]]; do
             shift
             TEMPLATES_DIR="$1"
             ;;
-        -*|--*)
+        -* | --*)
             usage >&2
             error_exit "Unknown option $1"
             ;;
@@ -113,7 +113,8 @@ done
 
 set_up
 
-[[ -z "$SCRIPT_NAME" ]] && error_exit "Mandatory argument 'script_name' not given"
+[[ -z "$SCRIPT_NAME" ]] && error_exit "Mandatory argument 'script_name' not given."
+[[ -f "$TEMPLATES_DIR/new_script_template.sh" ]] || error_exit "Template not found in given template directory."
 cp "$TEMPLATES_DIR/new_script_template.sh" "$OUTPUT_DIR/$SCRIPT_NAME"  # TODO: hardcode path not good.
 
 graceful_exit

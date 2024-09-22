@@ -98,7 +98,9 @@ while [[ -n "$1" ]]; do
     shift
 done
 
-# main
+set_up
+
+# main code here
 
 graceful_exit
 
