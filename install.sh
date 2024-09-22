@@ -6,7 +6,7 @@ LIBS=()  # Paths to external libraries.
 
 EXE_NAME="new_script.sh"
 INSTALL_PREFIX="/usr/local/bin/"
-TEMPLATES_INSTALL_PREFIX="$HOME/.local/share/bash_scripts_generation/"
+TEMPLATES_INSTALL_PREFIX="/home/$(whoami)/.local/share/bash_scripts_generation/"
 
 function set_up(){
     [[ -d "$TEMPLATES_INSTALL_PREFIX" ]] || mkdir -p "$TEMPLATES_INSTALL_PREFIX"
