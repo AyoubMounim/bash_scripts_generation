@@ -58,21 +58,26 @@ function load_libs(){
 
 function usage(){
     printf "%s\n" "Usage: $PROGNAME [-h|--help]"
-    printf "       %s\n" "$PROGNAME new_script_name"
+    printf "       %s\n" "$PROGNAME [options] new_script_name"
     return 0
 }
 
 function print_help(){
     cat <<- EOF
 $PROGNAME ver. $VERSION
-Bash scripts template generator.
+A simple scripts generator.
+
+The script's language is deduced from the file extension of the argument, unless
+explicitly set with the '--lang' flag.
+
 
 $(usage)
 
 Otions:
 -h, --help          Display this help message.
--o, --output <output_dir>   Path to output directory (defaults to cwd).
--t, --templates <templates_dir>    Path to templates directory (defaults to /usr/local/share/bash_scripts_generation/templates).
+-o, --output <output_dir>   Path to output directory (default: cwd).
+-t, --templates <templates_dir>    Path to templates directory (default: /usr/local/share/bash_scripts_generation/templates).
+-l, --lang bash|python    Language of the output script.
 
 Arguments:
 new_script_name    New script's name.
