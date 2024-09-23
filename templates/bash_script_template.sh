@@ -4,6 +4,8 @@ PROGNAME=${0##*/}
 VERSION="0.1"
 LIBS=()  # Paths to external libraries.
 
+# Global variables here.
+
 function set_up(){
     # Set up code.
     return 0
@@ -15,14 +17,15 @@ function clean_up(){
 }
 
 function graceful_exit(){
+    local error_code="$1"
     clean_up
-    exit 1
+    exit "${error_code:-0}"
 }
 
 function error_exit(){
     local error_msg="$1"
     printf "%s: %s\n" "$PROGNAME" "${error_msg:-"Unknown Error"}" >&2
-    graceful_exit
+    graceful_exit 1
 }
 
 function signal_exit(){
@@ -76,18 +79,18 @@ load_libs
 
 while [[ -n "$1" ]]; do
     case "$1" in
-        -h|--help)
+        -h | --help)
             print_help
             graceful_exit
             ;;
-        -f|--flag_long)
+        -f | --flag_long)
             # Process flag.
             ;;
-        -o|--option_long)
+        -o | --option_long)
             shift
             # Process option arg.
             ;;
-        -*|--*)
+        -* | --*)
             usage >&2
             error_exit "Unknown option $1"
             ;;
