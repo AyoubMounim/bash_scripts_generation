@@ -5,8 +5,9 @@ VERSION="0.1"
 LIBS=()  # Paths to external libraries.
 
 SCRIPT_NAME=""
+LANG=""
 QUIET=0  # TODO: this flag is not used.
-TEMPLATES_DIR="/usr/local/share/bash_scripts_generation/templates"
+TEMPLATES_DIR="/usr/local/share/scripts_generator/templates"
 OUTPUT_DIR="$(pwd)"
 
 function set_up(){
@@ -80,6 +81,23 @@ EOF
     return 0
 }
 
+function get_lang_from_name() {
+    local script_name="$1"
+    if [[ -z "$script_name" ]]; then
+        echo ""
+        return 0
+    fi
+    echo "bash"
+    return 0
+}
+
+function generate_bash_script() {
+    [[ -f "$TEMPLATES_DIR/bash_script_template.sh" ]] || error_exit "Template not found in given template directory."
+    cp "$TEMPLATES_DIR/bash_script_template.sh" "$OUTPUT_DIR/$SCRIPT_NAME"
+    chmod +x "$OUTPUT_DIR/$SCRIPT_NAME"
+    return 0
+}
+
 trap "signal_exit TERM" TERM HUP
 trap "signal_exit INT" INT
 
@@ -102,6 +120,10 @@ while [[ -n "$1" ]]; do
             shift
             TEMPLATES_DIR="$1"
             ;;
+        -l | --lang)
+            shift
+            LANG="$1"
+            ;;
         -* | --*)
             usage >&2
             error_exit "Unknown option $1"
@@ -116,9 +138,20 @@ done
 set_up
 
 [[ -z "$SCRIPT_NAME" ]] && error_exit "Mandatory argument 'script_name' not given."
-[[ -f "$TEMPLATES_DIR/new_script_template.sh" ]] || error_exit "Template not found in given template directory."
-cp "$TEMPLATES_DIR/new_script_template.sh" "$OUTPUT_DIR/$SCRIPT_NAME"  # TODO: hardcode path not good.
-chmod +x "$OUTPUT_DIR/$SCRIPT_NAME"
+
+if [[ -z "$LANG" ]]; then
+    LANG=$(get_lang_from_name $SCRIPT_NAME)
+    [[ -z "$LANG" ]] && error_exit "Unknown file extension. Try using the '--lang' flag."
+fi
+
+case "$LANG" in
+    bash)
+        generate_bash_script
+        ;;
+    *)
+        error_exit "Unknown scripting language: '$LANG'."
+        ;;
+esac
 
 graceful_exit
 
